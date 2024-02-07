@@ -10,4 +10,5 @@
       `brew install kyleconroy/sqlc/sqlc`
       `sqlc init`
       `make sqlc`
-- [] DB CRUD Unit testing
+- [x] DB CRUD Unit testing
+- [x] DB Transaction (store)
