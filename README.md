@@ -12,4 +12,5 @@
       `make sqlc`
 - [x] DB CRUD Unit testing
 - [x] DB Transaction (store)
-- [] Resolving DB deadlock
+- [x] Resolving DB deadlock
+- [] Transaction Isolation Level
