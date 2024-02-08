@@ -13,4 +13,7 @@
 - [x] DB CRUD Unit testing
 - [x] DB Transaction (store)
 - [x] Resolving DB deadlock
-- [] Transaction Isolation Level
+- [x] Transaction Isolation Level
+- [x] build_test actions workflow
+- [x] RESTful HTTP API; createAccount, getAccount, listAccounts
+- [x] load config uing viper

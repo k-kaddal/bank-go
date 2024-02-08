@@ -18,7 +18,7 @@ services:
 
   bank-db:
     container_name: bank-db-container
-    image: postgres:12-alpine
+    image: postgres
     restart: always
     hostname: ${POSTGRES_HOST}
     ports:
