@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	db "github.com/k-kaddal/bank-go/db/sqlc"
+	"github.com/lib/pq"
 )
 
 type createAccountRequest struct {
@@ -28,6 +29,15 @@ func(server *Server) createAccount(ctx *gin.Context){
 
 	account, err := server.store.CreateAccount(ctx, arg)
 	if err != nil {
+		if pqErr, ok := err.(*pq.Error); ok {
+			// print the error name to get the error name
+			// log.Println(pqErr.Code.Name())
+			// switch them to respond as a 403 Forbiden to the client
+			switch pqErr.Code.Name(){
+			case "foreign_key_violation", "unique_violation":
+				ctx.JSON(http.StatusForbidden, errorResponse(err))
+			}
+		}
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
