@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/k-kaddal/bank-go/api"
-	db "github.com/k-kaddal/bank-go/database/sqlc"
+	db "github.com/k-kaddal/bank-go/db/sqlc"
 	"github.com/k-kaddal/bank-go/util"
 	_ "github.com/lib/pq"
 )
