@@ -1,8 +1,8 @@
 migrateup:
-	migrate -path database/migration -database "postgresql://root:password@localhost:5432/bank_db?sslmode=disable" -verbose up
+	migrate -path db/migration -database "postgresql://root:password@localhost:5432/bank_db?sslmode=disable" -verbose up
 
 migratedown:
-	migrate -path database/migration -database "postgresql://root:password@localhost:5432/bank_db?sslmode=disable" -verbose down
+	migrate -path db/migration -database "postgresql://root:password@localhost:5432/bank_db?sslmode=disable" -verbose down
 
 sqlc:
 	sqlc generate
