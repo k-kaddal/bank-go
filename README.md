@@ -3,7 +3,7 @@
 - [x] DB Schema : [https://dbdiagram.io/d/Bank-Go-65c363f7ac844320aea4730f]
 - [x] DB migrate :
       `brew install golang-migrate`
-      `migrate create -ext sql -dir database/migration -seq init_schema`
+      `migrate create -ext sql -dir db/migration -seq add_users`
       `make migrateup` : to migrate the database up
       `make migratedown` : to migrate the database down
 - [x] Generate CRUD using sql:
@@ -21,6 +21,7 @@
 - [x] AccountApi unit test
 - [x] createTransfer API
 - [x] createTransfer API unit test
+- [x] add a user table && its migration
 
 ## Improvements:
 
