@@ -25,6 +25,7 @@
 - [x] DB CRUD for the user table + Unit tests
 - [x] fix unit tests and api of accounts to adobt the user constrain keys
 - [x] Hash password bcrypt
+- [] Create user api
 
 ## Improvements:
 
