@@ -17,7 +17,10 @@
 - [x] build_test actions workflow
 - [x] RESTful HTTP API; createAccount, getAccount, listAccounts
 - [x] load config uing viper
-- [] MockDb for testing using STUBS https://github.com/golang/mock
+- [x] MockDb for testing using STUBS https://github.com/golang/mock
+- [x] AccountApi unit test
+- [x] createTransfer API
+- [x] createTransfer API unit test
 
 ## Improvements:
 
