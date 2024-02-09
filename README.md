@@ -25,7 +25,8 @@
 - [x] DB CRUD for the user table + Unit tests
 - [x] fix unit tests and api of accounts to adobt the user constrain keys
 - [x] Hash password bcrypt
-- [] Create user api
+- [x] Create user api
+- [x] create user api unit test, solving issue of hashed password by creating a custom matcher
 
 ## Improvements:
 
