@@ -28,6 +28,7 @@
 - [x] Create user api
 - [x] create user api unit test, solving issue of hashed password by creating a custom matcher
 - [x] Implement JWT Token Maker
+- [x] Implement Paseto Token Maker
 
 ## Improvements:
 
