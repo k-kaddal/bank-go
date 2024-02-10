@@ -27,6 +27,7 @@
 - [x] Hash password bcrypt
 - [x] Create user api
 - [x] create user api unit test, solving issue of hashed password by creating a custom matcher
+- [x] Implement JWT Token Maker
 
 ## Improvements:
 
