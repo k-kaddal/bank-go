@@ -29,7 +29,9 @@
 - [x] create user api unit test, solving issue of hashed password by creating a custom matcher
 - [x] Implement JWT Token Maker
 - [x] Implement Paseto Token Maker
+- [x] Implement Authentication middleware and rules on apis
 
 ## Improvements:
 
 - [] add APIs: for update and delete account.
+- [] how config to be used in unit test. This to make the switch condition to choose between JWT and Paseto applicable

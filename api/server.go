@@ -22,15 +22,16 @@ func NewServer(config util.Config, store db.Store) (*Server, error) {
 	var tokenMaker token.Maker
 	var err error
 
-	switch config.Token_type {
-	case "JWT":
-		tokenMaker, err = token.NewJWTMaker(config.Token_Symmetric_Key)
-	case "PASETO":
-		tokenMaker, err = token.NewPasetoMaker(config.Token_Symmetric_Key)
-	}
+	// switch config.Token_type {
+	// case "JWT":
+	// 	tokenMaker, err = token.NewJWTMaker(config.Token_Symmetric_Key)
+	// case "PASETO":
+	// 	tokenMaker, err = token.NewPasetoMaker(config.Token_Symmetric_Key)
+	// }
+	tokenMaker, err = token.NewPasetoMaker(config.Token_Symmetric_Key)
 
 	if err != nil {
-		return nil, fmt.Errorf("cannot create a paseto error: %w", err)
+		return nil, fmt.Errorf("cannot create a token maker error: %w", err)
 	}
 
 	server := &Server{
@@ -53,12 +54,15 @@ func (server *Server) setupRouter() {
 
 	router.POST("/users", server.createUser)
 	router.POST("/users/login", server.loginUser)
+
+	authRoutes := router.Group("/").Use(authMiddleware(server.tokenMaker))
 	
-	router.POST("/accounts", server.createAccount)
-	router.GET("/accounts/:id", server.getAccount)
-	router.GET("/accounts", server.listAccounts)
+	authRoutes.POST("/accounts", server.createAccount)
+	authRoutes.GET("/accounts/:id", server.getAccount)
+	authRoutes.GET("/accounts", server.listAccounts)
 	
-	router.POST("/transfers", server.createTransfer)
+	authRoutes.POST("/transfers", server.createTransfer)
+
 	server.router = router
 }
 
