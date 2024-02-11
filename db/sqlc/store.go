@@ -12,6 +12,7 @@ import (
 type Store interface {
 	Querier
 	TransferTx(ctx context.Context, arg TransferTxParams) (TransferTxResult, error)
+	EntryTx(ctx context.Context, arg EntryTxParams) (EntryTxResult, error)
 }
 
 // SQLStore provides all functions to execute SQL queries and transaction
@@ -163,3 +164,43 @@ func addMoney (
 		todo : a concurrent db transaction that would performs adding money to an account
 		todo : it creates an entry and update the account's balance
  */
+
+ type EntryTxParams struct {
+	AccountID	int64	`json:"account_id"`
+	Amount		int64	`json:"amount"`
+ }
+
+ type EntryTxResult struct {
+	Entry	Entry	`json:"entry"`
+	Account	Account	`json:"account"`
+ }
+
+func (store *SQLStore) EntryTx(ctx context.Context, arg EntryTxParams) (EntryTxResult, error) {
+	var result EntryTxResult
+
+	err := store.execTx(ctx, func(q *Queries) error {
+		var err error
+
+		// create entry
+		result.Entry, err = q.CreateEntry(ctx, CreateEntryParams{
+			AccountID: arg.AccountID,
+			Amount: arg.Amount,
+		})
+		if err != nil{
+			return err
+		}
+
+		// update account's balance
+		result.Account, err = q.AddAccountBalance(ctx, AddAccountBalanceParams{
+			ID: arg.AccountID,
+			Amount: arg.Amount,
+		})
+		if err != nil{
+			return err
+		}
+		
+		return nil
+	})
+
+	return result, err
+ }
