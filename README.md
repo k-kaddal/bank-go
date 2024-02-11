@@ -34,4 +34,5 @@
 ## Improvements:
 
 - [] add APIs: for update and delete account.
-- [] how config to be used in unit test. This to make the switch condition to choose between JWT and Paseto applicable
+- [] how config to be used in unit test. This to make the switch condition to choose between JWT and Paseto applicable.
+- [] concurrent db transaction that would performs adding money to an account

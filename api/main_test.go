@@ -14,8 +14,8 @@ import (
 
 func newTestServer (t *testing.T, store db.Store) *Server {
 	config := util.Config{
-		Token_Symmetric_Key: util.RandomString(32),
-		Access_Token_Duration: time.Minute,
+		TokenSymmetricKey: util.RandomString(32),
+		AccessTokenDuration: time.Minute,
 	}
 
 	server, err := NewServer(config, store)

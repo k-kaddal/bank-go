@@ -22,13 +22,19 @@ func NewServer(config util.Config, store db.Store) (*Server, error) {
 	var tokenMaker token.Maker
 	var err error
 
-	// switch config.Token_type {
+	/*
+		todo: it is bettern to switch the authentication mechanism according to the config.TokenType 
+		todo: the pending issue here is that the test would fail. 
+		todo: env vars need to be passed in tests
+	*/
+
+	// switch config.Token_Type {
 	// case "JWT":
-	// 	tokenMaker, err = token.NewJWTMaker(config.Token_Symmetric_Key)
+	// 	tokenMaker, err = token.NewJWTMaker(config.TokenSymmetricKey)
 	// case "PASETO":
-	// 	tokenMaker, err = token.NewPasetoMaker(config.Token_Symmetric_Key)
+	// 	tokenMaker, err = token.NewPasetoMaker(config.TokenSymmetricKey)
 	// }
-	tokenMaker, err = token.NewPasetoMaker(config.Token_Symmetric_Key)
+	tokenMaker, err = token.NewPasetoMaker(config.TokenSymmetricKey)
 
 	if err != nil {
 		return nil, fmt.Errorf("cannot create a token maker error: %w", err)
@@ -62,6 +68,8 @@ func (server *Server) setupRouter() {
 	authRoutes.GET("/accounts", server.listAccounts)
 	
 	authRoutes.POST("/transfers", server.createTransfer)
+
+	// todo : create a post router "/entry" to deposit or withdraw to an account's balance
 
 	server.router = router
 }

@@ -8,6 +8,12 @@ import (
 	"golang.org/x/crypto/chacha20poly1305"
 )
 
+/*
+	* Method: NewPasetoMaker
+		- It inherents the Maker interface to CreateToken and VerifyToken
+		- The implementation is within Paseto context
+*/
+ 
 type PasetoMaker struct {
 	paseto *paseto.V2
 	symmetricKey []byte

@@ -19,10 +19,14 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// A custom matcher instead of gomock.Eq.
-// This is to fix the hashPasswored issues as it will always generate a new hash with the same password.
-// It will never match. This is why we need to customise our own
-
+/*
+	* Method: EqCreateUserParams
+		- a custom matcher used when TestCreateUserApi.
+		- the issuse is that every time the given passwored would be hashed differently
+		- thus it can't be propobly match the result during the test
+		- the solution is instead using the gomock.Eq, we customise an EqCreateUserParams
+			that correctly CheckPassword and compare them
+*/
 type eqCreateUserParamsMatcher struct {
 	arg      db.CreateUserParams
 	password string

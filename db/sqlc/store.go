@@ -27,7 +27,10 @@ func NewStore(db *sql.DB) Store {
 	}
 }
 
-// execTx executes a function within a database transaction
+/*	
+	* Method: execTx
+		- executes a function within a database transaction
+ */
 func (store *SQLStore) execTx (ctx context.Context, fn func(*Queries) error) error {
 	tx, err := store.db.BeginTx(ctx, nil)
 	if err != nil {
@@ -46,7 +49,11 @@ func (store *SQLStore) execTx (ctx context.Context, fn func(*Queries) error) err
 	return tx.Commit()
 }
 
-
+/*
+	* Method: TransferTx
+		- a concurrent db transaction that performs a money transfer from one account to the other
+		- it creates a transfer record, creat account entries and updates the accounts' balances
+*/
 type TransferTxParams struct {
 	FromAccountID	int64 `json:"from_account_id"`
 	ToAccountID 	int64 `json:"to_account_id"`
@@ -61,14 +68,13 @@ type TransferTxResult struct {
 	ToEntry			Entry		`json:"to_entry"`
 }
 
-// TransferTx performs a money transfer from one account to the other
-// it create a transfer record, add account entries, update account's balances within a single database transaction
 func (store *SQLStore) TransferTx(ctx context.Context, arg TransferTxParams) (TransferTxResult, error) {
 	var result TransferTxResult
 
 	err := store.execTx(ctx, func(q *Queries) error{
 		var err error
 
+		// create a transfer
 		result.Transfer, err = q.CreateTransfer(ctx, CreateTransferParams{
 			FromAccountID: arg.FromAccountID,
 			ToAccountID: arg.ToAccountID,
@@ -78,6 +84,7 @@ func (store *SQLStore) TransferTx(ctx context.Context, arg TransferTxParams) (Tr
 			return err
 		}
 		
+		// create entries for each account
 		result.FromEntry, err = q.CreateEntry(ctx, CreateEntryParams{
 			AccountID: arg.FromAccountID,
 			Amount: -arg.Amount,
@@ -94,7 +101,7 @@ func (store *SQLStore) TransferTx(ctx context.Context, arg TransferTxParams) (Tr
 			return err
 		}
 		
-		// update account balance
+		// update accounts' balances
 		if arg.FromAccountID < arg.ToAccountID {
 			result.FromAccount, result.ToAccount, err = addMoney(
 				ctx, 
@@ -121,6 +128,11 @@ func (store *SQLStore) TransferTx(ctx context.Context, arg TransferTxParams) (Tr
 	return result, err
 }
 
+/* 
+	* Method: addmoney
+		- it serves the TransferTx function by updating the accounts' balances
+			for both the sender and the receiver
+ */
 func addMoney (
 	ctx context.Context,
 	q *Queries,
@@ -145,3 +157,9 @@ func addMoney (
 
 	return
 }
+
+/* 
+	* Method: EntryTx
+		todo : a concurrent db transaction that would performs adding money to an account
+		todo : it creates an entry and update the account's balance
+ */

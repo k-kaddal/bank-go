@@ -10,11 +10,16 @@ import (
 
 const minSecretKeySize = 32 
 
+/* 
+	* Method: NewJWTMaker
+		- It inherent the Maker interface to CreateToken and VerifyToken
+		- The implementation is within JWT context
+ */
+ 
 type JWTMaker struct {
 	secretKey string
 }
 
-// Create a new JWT
 func NewJWTMaker(secretKey string) (Maker, error) {
 	if len(secretKey) < minSecretKeySize {
 		return nil, fmt.Errorf("invalid key size: must be at least %d charchters", minSecretKeySize)
@@ -22,7 +27,6 @@ func NewJWTMaker(secretKey string) (Maker, error) {
 	return &JWTMaker{secretKey}, nil
 }
 
-// Creates a new token
 func (maker *JWTMaker) CreateToken(username string, duration time.Duration) (string, error) {
 	payload, err := NewPayload(username, duration)
 	if err != nil {
@@ -33,7 +37,6 @@ func (maker *JWTMaker) CreateToken(username string, duration time.Duration) (str
 	return jwtToken.SignedString([]byte(maker.secretKey))
 }
 
-// Verify if token is valid
 func (maker *JWTMaker) VerifyToken(token string) (*Payload, error) {
 	keyFunc := func(token *jwt.Token) (interface{}, error) {
 		_, ok := token.Method.(*jwt.SigningMethodHMAC)
