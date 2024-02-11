@@ -68,8 +68,9 @@ func (server *Server) setupRouter() {
 	authRoutes.GET("/accounts", server.listAccounts)
 	
 	authRoutes.POST("/transfers", server.createTransfer)
-
+	
 	// todo : create a post router "/entry" to deposit or withdraw to an account's balance
+	authRoutes.POST("/entries", server.createEntry)
 
 	server.router = router
 }

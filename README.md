@@ -30,9 +30,10 @@
 - [x] Implement JWT Token Maker
 - [x] Implement Paseto Token Maker
 - [x] Implement Authentication middleware and rules on apis
+- [x] Implement EntryTx to create an entry and update account's balance
 
 ## Improvements:
 
 - [] add APIs: for update and delete account.
 - [] how config to be used in unit test. This to make the switch condition to choose between JWT and Paseto applicable.
-- [] concurrent db transaction that would performs adding money to an account
+- [] List all entries per account

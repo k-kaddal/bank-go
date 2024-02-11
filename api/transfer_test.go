@@ -36,7 +36,7 @@ func TestCreateTransferAPI(t *testing.T) {
 	testCases := []struct{
 		name			string
 		body			gin.H
-		setupAuth     func(t *testing.T, request *http.Request, tokenMaker token.Maker)
+		setupAuth     	func(t *testing.T, request *http.Request, tokenMaker token.Maker)
 		buildStubs		func(store *mockdb.MockStore)
 		checkResponse	func(recorder *httptest.ResponseRecorder)
 	}{
