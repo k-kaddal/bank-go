@@ -19,7 +19,7 @@ func TestMain(m *testing.M) {
 		log.Fatal("cannot load config:", err)
 	}
 	
-	testDB, err = sql.Open(config.DBDriver, "postgresql://root:password@postgres:5432/bank_db?sslmode=disable")
+	testDB, err = sql.Open(config.DBDriver, "postgresql://root:password@localhost:5432/bank_db?sslmode=disable")
 	if err != nil {
 		log.Fatal("cannot connect to database:", err)
 	}
