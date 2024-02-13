@@ -34,6 +34,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      # Create .env file for dbmock test
+      - name: Create .env file
+        run: |
+          echo "DB_SOURCE=postgresql://root:password@localhose:5432/bank_db?sslmode=disable" > .env
+
       - name: Install golang-migrate
         run: |
           curl -L https://github.com/golang-migrate/migrate/releases/download/v4.17.0/migrate.linux-amd64.tar.gz | tar xvz

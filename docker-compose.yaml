@@ -22,7 +22,6 @@ services:
     image: postgres:12-alpine
     restart: always
     env_file: .env
-    hostname: ${POSTGRES_HOST}
     ports:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
     environment:
