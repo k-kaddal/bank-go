@@ -37,7 +37,7 @@ jobs:
       # Create .env file for dbmock test
       - name: Create .env file for mockDB
         run: |
-          echo "DB_SOURCE=postgresql://root:password@localhost:5432/bank_db?sslmode=disable" > .env
+          echo "DB_SOURCE=postgresql://root:password@localhost:5432/bank_db" > .env
           echo "DB_DRIVER=postgres" > .env
 
       - name: Install golang-migrate
