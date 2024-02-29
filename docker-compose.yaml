@@ -1,21 +1,21 @@
 version: "3.9"
 services:
-  bank-service:
-    container_name: bank-service
-    image: bank-service
-    restart: always
-    build:
-      context: .
-      dockerfile: Dockerfile
-    env_file: .env
-    ports:
-      - ${SERVER_PORT}:${SERVER_PORT}
-    networks:
-      - bank-network
-    depends_on:
-      - bank-db
-    entrypoint: ["/app/wait-for.sh", "bank-db:5432", "--", "/app/start.sh"]
-    command: ["/app/main"]
+  # bank-service:
+  #   container_name: bank-service
+  #   image: bank-service
+  #   restart: always
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   env_file: .env
+  #   ports:
+  #     - ${SERVER_PORT}:${SERVER_PORT}
+  #   networks:
+  #     - bank-network
+  #   depends_on:
+  #     - bank-db
+  #   entrypoint: ["/app/wait-for.sh", "bank-db:5432", "--", "/app/start.sh"]
+  #   command: ["/app/main"]
 
   bank-db:
     container_name: bank-db
